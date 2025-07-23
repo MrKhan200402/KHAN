@@ -3,14 +3,10 @@ import sqlite3
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils import executor
-
 API_TOKEN = '7650136679:AAHyk75MwIswNvijCT1LZNPp-8arH8d8g2k'  # <-- BotFather dan olingan tokenni bu yerga yozing
-
 logging.basicConfig(level=logging.INFO)
-
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
-
 # 📁 SQLite ma'lumotlar bazasi
 conn = sqlite3.connect('ptc_bot.db')
 c = conn.cursor()
@@ -18,20 +14,17 @@ c.execute('''CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, balance I
 c.execute('''CREATE TABLE IF NOT EXISTS ads (id INTEGER PRIMARY KEY AUTOINCREMENT, text TEXT, url TEXT, views INTEGER, max_views INTEGER)''')
 c.execute('''CREATE TABLE IF NOT EXISTS views (user_id INTEGER, ad_id INTEGER)''')
 conn.commit()
-
 # 📱 Boshlang'ich menyu
 def main_menu():
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     keyboard.add("👁 Reklama ko‘rish", "💸 Hisobim", "📤 Reklama joylash")
     return keyboard
-
 # 🚀 /start komandasi
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
     c.execute("INSERT OR IGNORE INTO users (id) VALUES (?)", (message.from_user.id,))
     conn.commit()
     await message.answer("Assalomu alaykum! Reklama ko‘rib pul ishlang.", reply_markup=main_menu())
-
 # 💸 Hisobni ko‘rish
 @dp.message_handler(lambda m: m.text == "💸 Hisobim")
 async def show_balance(message: types.Message):
@@ -42,7 +35,7 @@ async def show_balance(message: types.Message):
 # 📤 Reklama joylash (Admin uchun oddiy usul)
 @dp.message_handler(lambda m: m.text == "📤 Reklama joylash")
 async def handle_ad_upload(message: types.Message):
-    if message.from_user.id != +998330329035:  # ADMIN_ID ni o'zgartiring
+    if message.from_user.id != 998330329035:  # ADMIN_ID ni o'zgartiring
         await message.answer("Faqat admin reklama joylashi mumkin.")
         return
     await message.answer("Reklama matnini yuboring (matn | havola | maksimal ko‘rish soni):")
