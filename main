@@ -4,7 +4,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.utils import executor
 
-API_TOKEN = 'BOT_TOKEN_BU_ERGA_QOYILADI'  # <-- BotFather dan olingan tokenni bu yerga yozing
+API_TOKEN = '7650136679:AAHyk75MwIswNvijCT1LZNPp-8arH8d8g2k'  # <-- BotFather dan olingan tokenni bu yerga yozing
 
 logging.basicConfig(level=logging.INFO)
 
@@ -42,7 +42,7 @@ async def show_balance(message: types.Message):
 # 📤 Reklama joylash (Admin uchun oddiy usul)
 @dp.message_handler(lambda m: m.text == "📤 Reklama joylash")
 async def handle_ad_upload(message: types.Message):
-    if message.from_user.id != ADMIN_ID:  # ADMIN_ID ni o'zgartiring
+    if message.from_user.id != +998330329035:  # ADMIN_ID ni o'zgartiring
         await message.answer("Faqat admin reklama joylashi mumkin.")
         return
     await message.answer("Reklama matnini yuboring (matn | havola | maksimal ko‘rish soni):")
